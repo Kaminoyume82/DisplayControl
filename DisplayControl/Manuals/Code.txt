@@ -1,0 +1,22 @@
+Peter Schuster: https://github.com/peschuster
+VideoCtrl Quellcode: https://github.com/feg-giessen/VideoCtrl
+
+Speziell der Quellcode für 4x4 Matrix: https://github.com/feg-giessen/VideoCtrl/blob/master/software/firmware/VideoCtrl/lib/MatrixSwitch.cpp
+Haupteinstieg für Programm: https://github.com/feg-giessen/VideoCtrl/blob/master/software/firmware/VideoCtrl/main.cpp
+Projector Quellcode: https://github.com/feg-giessen/VideoCtrl/blob/master/software/firmware/VideoCtrl/lib/ProjectorCtrl.cpp
+
+Website companion: https://bitfocus.io/companion/
+Doku Companion: https://github.com/bitfocus/companion/blob/master/documentation/gettingstarted.md
+Fakten der FeG Technik: http://technik-blog.feg-giessen.de/2014/01/fakten/
+
+Stream Deck Plugin Examples:
+https://developer.elgato.com/documentation/stream-deck/samples/counter/
+
+
+
+Geräte die angesprochen werden müssen:
+RS232 4x4 Matrix: ATEN VM0404H
+RS232 4x1 Matrix: HDMI Switch VS481a
+LAN Beamer:  EIKI LC-WUL100
+LAN Kleiner Saal:  LG 60LY330C
+LAN Stage Display: LG 60PA6500
