@@ -1,0 +1,22 @@
+﻿<UserControl x:Class="DisplayControl.Controls.IpAddressPort"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DisplayControl.Controls"
+             mc:Ignorable="d"
+             Background="White" FontFamily="Consolas" FontSize="16" Width="auto">
+
+    <StackPanel Height="22" x:Name="IPAdressPort" Orientation="Horizontal" Grid.Column="0">
+        <TextBox BorderBrush="Transparent" Grid.Column="0" TextAlignment="Center" MinWidth="35" GotFocus="TextBox_GotFocus" PreviewTextInput="textBoxNumbersOnly" MaxLength="3">255</TextBox>
+        <TextBox BorderBrush="Transparent" IsReadOnly="True" IsTabStop="False">.</TextBox>
+        <TextBox BorderBrush="Transparent" Grid.Column="0" TextAlignment="Center" MinWidth="35" GotFocus="TextBox_GotFocus" PreviewTextInput="textBoxNumbersOnly" MaxLength="3">255</TextBox>
+        <TextBox BorderBrush="Transparent" IsReadOnly="True" IsTabStop="False">.</TextBox>
+        <TextBox BorderBrush="Transparent" Grid.Column="0" TextAlignment="Center" MinWidth="35" GotFocus="TextBox_GotFocus" PreviewTextInput="textBoxNumbersOnly" MaxLength="3">255</TextBox>
+        <TextBox BorderBrush="Transparent" IsReadOnly="True" IsTabStop="False">.</TextBox>
+        <TextBox BorderBrush="Transparent" Grid.Column="0" TextAlignment="Center" MinWidth="35" GotFocus="TextBox_GotFocus" PreviewTextInput="textBoxNumbersOnly" MaxLength="3">255</TextBox>
+        <TextBox BorderBrush="Transparent" IsReadOnly="True" IsTabStop="False">:</TextBox>
+        <TextBox BorderBrush="Transparent" Grid.Column="1" TextAlignment="Center" MinWidth="50" GotFocus="TextBox_GotFocus" PreviewTextInput="textBoxNumbersOnly" MaxLength="5">12345</TextBox>
+    </StackPanel>
+    
+</UserControl>
