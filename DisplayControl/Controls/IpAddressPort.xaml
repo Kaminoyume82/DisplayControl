@@ -8,15 +8,15 @@
              Background="White" FontFamily="Consolas" FontSize="16" Width="auto">
 
     <StackPanel Height="22" x:Name="IPAdressPort" Orientation="Horizontal" Grid.Column="0">
-        <TextBox BorderBrush="Transparent" Grid.Column="0" TextAlignment="Center" MinWidth="35" GotFocus="TextBox_GotFocus" PreviewTextInput="textBoxNumbersOnly" MaxLength="3">255</TextBox>
+        <TextBox Text="{Binding IpPart1}"  BorderBrush="Transparent" Grid.Column="0" TextAlignment="Center" MinWidth="35" GotFocus="TextBox_GotFocus" PreviewTextInput="textBoxNumbersOnly" MaxLength="3"></TextBox>
         <TextBox BorderBrush="Transparent" IsReadOnly="True" IsTabStop="False">.</TextBox>
-        <TextBox BorderBrush="Transparent" Grid.Column="0" TextAlignment="Center" MinWidth="35" GotFocus="TextBox_GotFocus" PreviewTextInput="textBoxNumbersOnly" MaxLength="3">255</TextBox>
+        <TextBox Text="{Binding IpPart2}" BorderBrush="Transparent" Grid.Column="0" TextAlignment="Center" MinWidth="35" GotFocus="TextBox_GotFocus" PreviewTextInput="textBoxNumbersOnly" MaxLength="3"></TextBox>
         <TextBox BorderBrush="Transparent" IsReadOnly="True" IsTabStop="False">.</TextBox>
-        <TextBox BorderBrush="Transparent" Grid.Column="0" TextAlignment="Center" MinWidth="35" GotFocus="TextBox_GotFocus" PreviewTextInput="textBoxNumbersOnly" MaxLength="3">255</TextBox>
+        <TextBox Text="{Binding IpPart3}" BorderBrush="Transparent" Grid.Column="0" TextAlignment="Center" MinWidth="35" GotFocus="TextBox_GotFocus" PreviewTextInput="textBoxNumbersOnly" MaxLength="3"></TextBox>
         <TextBox BorderBrush="Transparent" IsReadOnly="True" IsTabStop="False">.</TextBox>
-        <TextBox BorderBrush="Transparent" Grid.Column="0" TextAlignment="Center" MinWidth="35" GotFocus="TextBox_GotFocus" PreviewTextInput="textBoxNumbersOnly" MaxLength="3">255</TextBox>
+        <TextBox Text="{Binding IpPart4}" BorderBrush="Transparent" Grid.Column="0" TextAlignment="Center" MinWidth="35" GotFocus="TextBox_GotFocus" PreviewTextInput="textBoxNumbersOnly" MaxLength="3"></TextBox>
         <TextBox BorderBrush="Transparent" IsReadOnly="True" IsTabStop="False">:</TextBox>
-        <TextBox BorderBrush="Transparent" Grid.Column="1" TextAlignment="Center" MinWidth="50" GotFocus="TextBox_GotFocus" PreviewTextInput="textBoxNumbersOnly" MaxLength="5">12345</TextBox>
+        <TextBox Text="{Binding Port}" BorderBrush="Transparent" Grid.Column="1" TextAlignment="Center" MinWidth="50" GotFocus="TextBox_GotFocus" PreviewTextInput="textBoxNumbersOnly" MaxLength="5"></TextBox>
     </StackPanel>
     
 </UserControl>

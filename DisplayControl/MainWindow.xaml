@@ -7,7 +7,7 @@
         xmlns:controls="clr-namespace:DisplayControl.Controls"
         xmlns:tb="http://www.hardcodet.net/taskbar" x:Name="window" x:Class="DisplayControl.MainWindow"
         mc:Ignorable="d"
-        Title="FEG Display Control" Height="450" Width="800" WindowState="Normal" ResizeMode="NoResize" WindowStyle="SingleBorderWindow" Icon="pack://application:,,,/Resources/Display.ico" ShowInTaskbar="True" Closing="window_Closing" FontFamily="Verdana" FontSize="14">
+        Title="FEG Display Control" Height="450" Width="800" WindowState="Normal" ResizeMode="NoResize" WindowStyle="SingleBorderWindow" Icon="pack://application:,,,/Resources/Display.ico" ShowInTaskbar="True" Closing="Window_Closing" FontFamily="Verdana" FontSize="14">
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -38,8 +38,6 @@
             <!--Button Margin="0,0,10,0" x:Name="buttonMakeStartUpEntry" Click="buttonMakeStartUpEntry_Click">Autostart Registry hinzufügen</Button-->
             <CheckBox Margin="0,0,10,0"
                       x:Name="checkBoxStartInvisible"
-                      Checked="checkBoxStartInvisible_CheckedChanged"
-                      Unchecked="checkBoxStartInvisible_CheckedChanged"
                       VerticalAlignment="Center">
                 Minimiert in System Tray starten
             </CheckBox>
@@ -49,13 +47,13 @@
             <TextBlock Margin="5" HorizontalAlignment="Center">Konfiguration</TextBlock>
             <StackPanel Margin="5" Orientation="Horizontal">
                 <TextBlock HorizontalAlignment="Center" Margin="0,0,10,0">Companion:</TextBlock>
-                <controls:IpAddressPort x:Name="ipAddressPortCompanion"/>
+                <controls:IpAddressPort x:Name="ipAddressPortCompanion" DataContext="Companion"/>
             </StackPanel>
             
             <Grid Margin="5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="120" />
-                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="80" />
                     <ColumnDefinition Width="auto" />
                     <ColumnDefinition Width="auto" />
                     <ColumnDefinition Width="auto" />
@@ -78,29 +76,29 @@
                 <Label Grid.Row="0" Grid.Column="4" FontWeight="Bold" HorizontalAlignment="Center">Bank</Label>
 
                 <Label Grid.Row="1" Grid.Column="0">Beamer 1</Label>
-                <TextBox Grid.Row="1" Grid.Column="1" BorderBrush="Transparent" x:Name="textBoxBeamer1Port" FontFamily="Consolas" FontSize="16" Height="22" MinWidth="50" PreviewTextInput="textBoxNumbersOnly" MaxLength="5"/>
+                <TextBox Text="{Binding Beamer1In}"  Grid.Row="1" Grid.Column="1" BorderBrush="Transparent" x:Name="textBoxBeamer1Port" FontFamily="Consolas" FontSize="16" Height="22" MinWidth="50" PreviewTextInput="TextBoxNumbersOnly" MaxLength="5" HorizontalContentAlignment="Center"/>
                 <controls:IpAddressPort Grid.Row="1" Grid.Column="2" x:Name="ipAddressPortBeamer1"/>
-                <TextBox Grid.Row="1" Grid.Column="3" BorderBrush="Transparent" x:Name="textBoxBeamer1Page" FontFamily="Consolas" FontSize="16" Height="22" MinWidth="50" PreviewTextInput="textBoxNumbersOnly" MaxLength="2"/>
-                <TextBox Grid.Row="1" Grid.Column="4" BorderBrush="Transparent" x:Name="textBoxBeamer1Bank" FontFamily="Consolas" FontSize="16" Height="22" MinWidth="50" PreviewTextInput="textBoxNumbersOnly" MaxLength="2"/>
+                <TextBox Text="{Binding Beamer1Page}" Grid.Row="1" Grid.Column="3" BorderBrush="Transparent" x:Name="textBoxBeamer1Page" FontFamily="Consolas" FontSize="16" Height="22" MinWidth="50" PreviewTextInput="TextBoxNumbersOnly" MaxLength="2" HorizontalContentAlignment="Center"/>
+                <TextBox Text="{Binding Beamer1Bank}" Grid.Row="1" Grid.Column="4" BorderBrush="Transparent" x:Name="textBoxBeamer1Bank" FontFamily="Consolas" FontSize="16" Height="22" MinWidth="50" PreviewTextInput="TextBoxNumbersOnly" MaxLength="2" HorizontalContentAlignment="Center"/>
 
                 <Label Grid.Row="2" Grid.Column="0">Beamer 2</Label>
-                <TextBox Grid.Row="2" Grid.Column="1" BorderBrush="Transparent" x:Name="textBoxBeamer2Port" FontFamily="Consolas" FontSize="16" Height="22" MinWidth="50" PreviewTextInput="textBoxNumbersOnly" MaxLength="5"/>
+                <TextBox Text="{Binding Beamer2In}" Grid.Row="2" Grid.Column="1" BorderBrush="Transparent" x:Name="textBoxBeamer2Port" FontFamily="Consolas" FontSize="16" Height="22" MinWidth="50" PreviewTextInput="TextBoxNumbersOnly" MaxLength="5" HorizontalContentAlignment="Center"/>
                 <controls:IpAddressPort Grid.Row="2" Grid.Column="2" x:Name="ipAddressPortBeamer2"/>
-                <TextBox Grid.Row="2" Grid.Column="3" BorderBrush="Transparent" x:Name="textBoxBeamer2Page" FontFamily="Consolas" FontSize="16" Height="22" MinWidth="50" PreviewTextInput="textBoxNumbersOnly" MaxLength="2"/>
-                <TextBox Grid.Row="2" Grid.Column="4" BorderBrush="Transparent" x:Name="textBoxBeamer2Bank" FontFamily="Consolas" FontSize="16" Height="22" MinWidth="50" PreviewTextInput="textBoxNumbersOnly" MaxLength="2"/>
+                <TextBox Text="{Binding Beamer2Page}" Grid.Row="2" Grid.Column="3" BorderBrush="Transparent" x:Name="textBoxBeamer2Page" FontFamily="Consolas" FontSize="16" Height="22" MinWidth="50" PreviewTextInput="TextBoxNumbersOnly" MaxLength="2" HorizontalContentAlignment="Center"/>
+                <TextBox Text="{Binding Beamer2Bank}" Grid.Row="2" Grid.Column="4" BorderBrush="Transparent" x:Name="textBoxBeamer2Bank" FontFamily="Consolas" FontSize="16" Height="22" MinWidth="50" PreviewTextInput="TextBoxNumbersOnly" MaxLength="2" HorizontalContentAlignment="Center"/>
 
                 <Label Grid.Row="3" Grid.Column="0">Stage</Label>
-                <TextBox Grid.Row="3" Grid.Column="1" BorderBrush="Transparent" x:Name="textBoxStagePort" FontFamily="Consolas" FontSize="16" Height="22" MinWidth="50" PreviewTextInput="textBoxNumbersOnly" MaxLength="5"/>
+                <TextBox Text="{Binding StageDisplayIn}" Grid.Row="3" Grid.Column="1" BorderBrush="Transparent" x:Name="textBoxStagePort" FontFamily="Consolas" FontSize="16" Height="22" MinWidth="50" PreviewTextInput="TextBoxNumbersOnly" MaxLength="5" HorizontalContentAlignment="Center"/>
                 <controls:IpAddressPort Grid.Row="3" Grid.Column="2" x:Name="ipAddressPortStage"/>
-                <TextBox Grid.Row="3" Grid.Column="3" BorderBrush="Transparent" x:Name="textBoxStagePage" FontFamily="Consolas" FontSize="16" Height="22" MinWidth="50" PreviewTextInput="textBoxNumbersOnly" MaxLength="2"/>
-                <TextBox Grid.Row="3" Grid.Column="4" BorderBrush="Transparent" x:Name="textBoxStageBank" FontFamily="Consolas" FontSize="16" Height="22" MinWidth="50" PreviewTextInput="textBoxNumbersOnly" MaxLength="2"/>
+                <TextBox Text="{Binding StageDisplayPage}" Grid.Row="3" Grid.Column="3" BorderBrush="Transparent" x:Name="textBoxStagePage" FontFamily="Consolas" FontSize="16" Height="22" MinWidth="50" PreviewTextInput="TextBoxNumbersOnly" MaxLength="2" HorizontalContentAlignment="Center"/>
+                <TextBox Text="{Binding StageDisplayBank}" Grid.Row="3" Grid.Column="4" BorderBrush="Transparent" x:Name="textBoxStageBank" FontFamily="Consolas" FontSize="16" Height="22" MinWidth="50" PreviewTextInput="TextBoxNumbersOnly" MaxLength="2" HorizontalContentAlignment="Center"/>
 
 
                 <Label Grid.Row="4" Grid.Column="0">Kleiner Saal</Label>
-                <TextBox Grid.Row="4" Grid.Column="1" BorderBrush="Transparent" x:Name="textBoxSmallHallPort" FontFamily="Consolas" FontSize="16" Height="22" MinWidth="50" PreviewTextInput="textBoxNumbersOnly" MaxLength="5"/>
+                <TextBox Text="{Binding SmallHallIn}" Grid.Row="4" Grid.Column="1" BorderBrush="Transparent" x:Name="textBoxSmallHallPort" FontFamily="Consolas" FontSize="16" Height="22" MinWidth="50" PreviewTextInput="TextBoxNumbersOnly" MaxLength="5" HorizontalContentAlignment="Center"/>
                 <controls:IpAddressPort Grid.Row="4" Grid.Column="2" x:Name="ipAddressPortSmallHall"/>
-                <TextBox Grid.Row="4" Grid.Column="3" BorderBrush="Transparent" x:Name="textBoxSmallHallPage" FontFamily="Consolas" FontSize="16" Height="22" MinWidth="50" PreviewTextInput="textBoxNumbersOnly" MaxLength="2"/>
-                <TextBox Grid.Row="4" Grid.Column="4" BorderBrush="Transparent" x:Name="textBoxSmallHallBank" FontFamily="Consolas" FontSize="16" Height="22" MinWidth="50" PreviewTextInput="textBoxNumbersOnly" MaxLength="2"/>
+                <TextBox Text="{Binding SmallHallPage}" Grid.Row="4" Grid.Column="3" BorderBrush="Transparent" x:Name="textBoxSmallHallPage" FontFamily="Consolas" FontSize="16" Height="22" MinWidth="50" PreviewTextInput="TextBoxNumbersOnly" MaxLength="2" HorizontalContentAlignment="Center"/>
+                <TextBox Text="{Binding SmallHallBank}" Grid.Row="4" Grid.Column="4" BorderBrush="Transparent" x:Name="textBoxSmallHallBank" FontFamily="Consolas" FontSize="16" Height="22" MinWidth="50" PreviewTextInput="TextBoxNumbersOnly" MaxLength="2" HorizontalContentAlignment="Center"/>
 
             </Grid>
         </StackPanel>

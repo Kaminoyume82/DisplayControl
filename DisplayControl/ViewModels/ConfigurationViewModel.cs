@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace DisplayControl.Controls
+namespace DisplayControl.ViewModels
 {
     public class ConfigurationViewModel : INotifyPropertyChanged
     {
@@ -20,12 +21,47 @@ namespace DisplayControl.Controls
         private IpAddressPortViewModel stageDisplayOut;
         private IpAddressPortViewModel smallHallOut;
 
+        [JsonIgnore]
         public (int Page, int Bank) Beamer1PageBank { get; private set; }
+        [JsonIgnore]
         public (int Page, int Bank) Beamer2PageBank { get; private set; }
+        [JsonIgnore]
         public (int Page, int Bank) StageDisplayPageBank { get; private set; }
+        [JsonIgnore]
         public (int Page, int Bank) SmallHallPageBank { get; private set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public static ConfigurationViewModel Default
+        {
+            get
+            {
+                return new ConfigurationViewModel()
+                {
+                    Companion = IpAddressPortViewModel.Default,
+
+                    Beamer1In = 12345,
+                    Beamer1Out = IpAddressPortViewModel.Default,
+                    Beamer1Page = 99,
+                    Beamer1Bank = 99,
+
+                    Beamer2In = 12345,
+                    Beamer2Out = IpAddressPortViewModel.Default,
+                    Beamer2Page = 99,
+                    Beamer2Bank = 99,
+
+                    StageDisplayIn = 12345,
+                    StageDisplayOut = IpAddressPortViewModel.Default,
+                    StageDisplayPage = 99,
+                    StageDisplayBank = 99,
+
+                    SmallHallIn = 12345,
+                    SmallHallOut = IpAddressPortViewModel.Default,
+                    SmallHallPage = 99,
+                    SmallHallBank = 99,
+                };
+            }
+        }
 
         public int Beamer1In
         {

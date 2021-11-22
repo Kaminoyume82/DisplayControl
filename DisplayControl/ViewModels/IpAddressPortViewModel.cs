@@ -5,8 +5,10 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
-namespace DisplayControl.Controls
+namespace DisplayControl.ViewModels
 {
     public class IpAddressPortViewModel : INotifyPropertyChanged
     {
@@ -23,6 +25,12 @@ namespace DisplayControl.Controls
             IPEndPoint = new IPEndPoint(IPAddress.Broadcast, IPEndPoint.MaxPort);
         }
 
+        public IpAddressPortViewModel(IPEndPoint endPoint)
+        {
+            IPEndPoint = endPoint;
+        }
+
+        [JsonIgnore]
         public static IpAddressPortViewModel Default
         {
             get
@@ -31,6 +39,7 @@ namespace DisplayControl.Controls
             }
         }
 
+        [JsonIgnore]
         public IPEndPoint IPEndPoint
         {
             get
