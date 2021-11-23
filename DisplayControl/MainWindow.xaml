@@ -44,7 +44,7 @@
         </StackPanel>
 
         <StackPanel Grid.Row="1">
-            <TextBlock Margin="5" HorizontalAlignment="Center">Konfiguration</TextBlock>
+            <TextBlock Margin="5" HorizontalAlignment="Center" FontWeight="Bold">Konfiguration</TextBlock>
             <StackPanel Margin="5" Orientation="Horizontal">
                 <TextBlock HorizontalAlignment="Center" Margin="0,0,10,0">Companion:</TextBlock>
                 <controls:IpAddressPort x:Name="ipAddressPortCompanion" DataContext="Companion"/>
@@ -106,7 +106,7 @@
         <Grid Grid.Row="2">
 
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="120" />
+                <ColumnDefinition Width="170" />
                 <ColumnDefinition Width="100" />
                 <ColumnDefinition Width="100" />
                 <ColumnDefinition Width="100" />
@@ -121,31 +121,31 @@
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
 
-            <Label Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" FontWeight="Bold">Gerät/Status</Label>
+            <Label Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" FontWeight="Bold">Gerät/Verbindung</Label>
             <Label Grid.Row="1" Grid.Column="0" FontWeight="Bold">Beamer 1</Label>
             <Label Grid.Row="2" Grid.Column="0" FontWeight="Bold">Beamer 2</Label>
             <Label Grid.Row="3" Grid.Column="0" FontWeight="Bold">Stage</Label>
             <Label Grid.Row="4" Grid.Column="0" FontWeight="Bold">Kleiner Saal</Label>
 
-            <Label Grid.Row="0" Grid.Column="1" FontWeight="Bold" HorizontalContentAlignment="Center">TCP/IP In</Label>
-            <Label Grid.Row="0" Grid.Column="2" FontWeight="Bold" HorizontalContentAlignment="Center">TCP/IP Out</Label>
+            <Label Grid.Row="0" Grid.Column="1" FontWeight="Bold" HorizontalContentAlignment="Center" Content="Companion"/>
+            <Label Grid.Row="0" Grid.Column="2" FontWeight="Bold" HorizontalContentAlignment="Center">Gerät</Label>
             <Label Grid.Row="0" Grid.Column="3" FontWeight="Bold" HorizontalContentAlignment="Center">Power</Label>
 
-            <Label Grid.Row="1" Grid.Column="1" BorderBrush="Black" BorderThickness="2" Background="LightGreen" Height="15" Width="15"></Label>
-            <Label Grid.Row="1" Grid.Column="2" BorderBrush="Black" BorderThickness="2" Background="LightGreen" Height="15" Width="15"></Label>
-            <Label Grid.Row="1" Grid.Column="3" BorderBrush="Black" BorderThickness="2" Background="Red" Height="15" Width="15"></Label>
+            <Label Grid.Row="1" Grid.Column="1" BorderBrush="Black" BorderThickness="2" Background="{Binding Beamer1TCPInColor}" Height="15" Width="15" x:Name="labelBeamer1TCPInColor"></Label>
+            <Label Grid.Row="1" Grid.Column="2" BorderBrush="Black" BorderThickness="2" Background="{Binding Beamer1TCPOutColor}" Height="15" Width="15" x:Name="labelBeamer1TCPOutColor"></Label>
+            <Label Grid.Row="1" Grid.Column="3" BorderBrush="Black" BorderThickness="2" Background="{Binding Beamer1PowerColor}" Height="15" Width="15" x:Name="labelBeamer1PowerColor"></Label>
 
-            <Label Grid.Row="2" Grid.Column="1" BorderBrush="Black" BorderThickness="2" Background="LightGreen" Height="15" Width="15"></Label>
-            <Label Grid.Row="2" Grid.Column="2" BorderBrush="Black" BorderThickness="2" Background="LightGreen" Height="15" Width="15"></Label>
-            <Label Grid.Row="2" Grid.Column="3" BorderBrush="Black" BorderThickness="2" Background="Red" Height="15" Width="15"></Label>
+            <Label Grid.Row="2" Grid.Column="1" BorderBrush="Black" BorderThickness="2" Background="{Binding Beamer2TCPInColor}" Height="15" Width="15" x:Name="labelBeamer2TCPInColor"></Label>
+            <Label Grid.Row="2" Grid.Column="2" BorderBrush="Black" BorderThickness="2" Background="{Binding Beamer2TCPOutColor}" Height="15" Width="15" x:Name="labelBeamer2TCPOutColor"></Label>
+            <Label Grid.Row="2" Grid.Column="3" BorderBrush="Black" BorderThickness="2" Background="{Binding Beamer2PowerColor}" Height="15" Width="15" x:Name="labelBeamer2PowerColor"></Label>
 
-            <Label Grid.Row="3" Grid.Column="1" BorderBrush="Black" BorderThickness="2" Background="LightGreen" Height="15" Width="15"></Label>
-            <Label Grid.Row="3" Grid.Column="2" BorderBrush="Black" BorderThickness="2" Background="LightGreen" Height="15" Width="15"></Label>
-            <Label Grid.Row="3" Grid.Column="3" BorderBrush="Black" BorderThickness="2" Background="Red" Height="15" Width="15"></Label>
+            <Label Grid.Row="3" Grid.Column="1" BorderBrush="Black" BorderThickness="2" Background="{Binding StageDisplayTCPInColor}" Height="15" Width="15" x:Name="labelStageDisplayTCPInColor"></Label>
+            <Label Grid.Row="3" Grid.Column="2" BorderBrush="Black" BorderThickness="2" Background="{Binding StageDisplayTCPOutColor}" Height="15" Width="15" x:Name="labelStageDisplayTCPOutColor"></Label>
+            <Label Grid.Row="3" Grid.Column="3" BorderBrush="Black" BorderThickness="2" Background="{Binding StageDisplayPowerColor}" Height="15" Width="15" x:Name="labelStageDisplayPowerColor"></Label>
 
-            <Label Grid.Row="4" Grid.Column="1" BorderBrush="Black" BorderThickness="2" Background="LightGreen" Height="15" Width="15"></Label>
-            <Label Grid.Row="4" Grid.Column="2" BorderBrush="Black" BorderThickness="2" Background="LightGreen" Height="15" Width="15"></Label>
-            <Label Grid.Row="4" Grid.Column="3" BorderBrush="Black" BorderThickness="2" Background="Red" Height="15" Width="15"></Label>
+            <Label Grid.Row="4" Grid.Column="1" BorderBrush="Black" BorderThickness="2" Background="{Binding SmallHallTCPInColor}" Height="15" Width="15" x:Name="labelSmallHallTCPInColor"></Label>
+            <Label Grid.Row="4" Grid.Column="2" BorderBrush="Black" BorderThickness="2" Background="{Binding SmallHallTCPOutColor}" Height="15" Width="15" x:Name="labelSmallHallTCPOutColor"></Label>
+            <Label Grid.Row="4" Grid.Column="3" BorderBrush="Black" BorderThickness="2" Background="{Binding SmallHallPowerColor}" Height="15" Width="15" x:Name="labelSmallHallPowerColor"></Label>
         </Grid>
         
     </Grid>

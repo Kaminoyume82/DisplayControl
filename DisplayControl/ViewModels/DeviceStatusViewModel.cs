@@ -1,34 +1,51 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
+using System.Windows.Media;
 
 namespace DisplayControl.ViewModels
 {
     public class DeviceStatusViewModel : INotifyPropertyChanged
     {
-        private Brush beamer1TCPInColor;
-        private Brush beamer1TCPOutColor;
-        private Brush beamer1PowerColor;
+        private SolidColorBrush beamer1TCPInColor;
+        private SolidColorBrush beamer1TCPOutColor;
+        private SolidColorBrush beamer1PowerColor;
 
-        private Brush beamer2TCPInColor;
-        private Brush beamer2TCPOutColor;
-        private Brush beamer2PowerColor;
+        private SolidColorBrush beamer2TCPInColor;
+        private SolidColorBrush beamer2TCPOutColor;
+        private SolidColorBrush beamer2PowerColor;
 
-        private Brush stageDisplayTCPInColor;
-        private Brush stageDisplayTCPOutColor;
-        private Brush stageDisplayPowerColor;
+        private SolidColorBrush stageDisplayTCPInColor;
+        private SolidColorBrush stageDisplayTCPOutColor;
+        private SolidColorBrush stageDisplayPowerColor;
 
-        private Brush smallHallTCPInColor;
-        private Brush smallHallTCPOutColor;
-        private Brush smallHallPowerColor;
+        private SolidColorBrush smallHallTCPInColor;
+        private SolidColorBrush smallHallTCPOutColor;
+        private SolidColorBrush smallHallPowerColor;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public Brush Beamer1TCPInColor
+        public static DeviceStatusViewModel Default
+        {
+            get
+            {
+                return new DeviceStatusViewModel()
+                {
+                    Beamer1TCPInColor = Brushes.Gray,
+                    Beamer1TCPOutColor = Brushes.Gray,
+                    Beamer1PowerColor = Brushes.Gray,
+                    Beamer2TCPInColor = Brushes.Gray,
+                    Beamer2TCPOutColor = Brushes.Gray,
+                    Beamer2PowerColor = Brushes.Gray,
+                    StageDisplayTCPInColor = Brushes.Gray,
+                    StageDisplayTCPOutColor = Brushes.Gray,
+                    StageDisplayPowerColor = Brushes.Gray,
+                    SmallHallTCPInColor = Brushes.Gray,
+                    SmallHallTCPOutColor = Brushes.Gray,
+                    SmallHallPowerColor = Brushes.Gray,
+                };
+            }
+        }
+
+        public SolidColorBrush Beamer1TCPInColor
         {
             get { return beamer1TCPInColor; }
             set
@@ -41,7 +58,7 @@ namespace DisplayControl.ViewModels
             }
         }
 
-        public Brush Beamer1TCPOutColor
+        public SolidColorBrush Beamer1TCPOutColor
         {
             get { return beamer1TCPOutColor; }
             set
@@ -53,7 +70,7 @@ namespace DisplayControl.ViewModels
                 }
             }
         }
-        public Brush Beamer1PowerColor
+        public SolidColorBrush Beamer1PowerColor
         {
             get { return beamer1PowerColor; }
             set
@@ -66,7 +83,7 @@ namespace DisplayControl.ViewModels
             }
         }
 
-        public Brush Beamer2TCPInColor
+        public SolidColorBrush Beamer2TCPInColor
         {
             get { return beamer2TCPInColor; }
             set
@@ -79,7 +96,7 @@ namespace DisplayControl.ViewModels
             }
         }
 
-        public Brush Beamer2TCPOutColor
+        public SolidColorBrush Beamer2TCPOutColor
         {
             get { return beamer2TCPOutColor; }
             set
@@ -91,7 +108,7 @@ namespace DisplayControl.ViewModels
                 }
             }
         }
-        public Brush Beamer2PowerColor
+        public SolidColorBrush Beamer2PowerColor
         {
             get { return beamer2PowerColor; }
             set
@@ -104,7 +121,7 @@ namespace DisplayControl.ViewModels
             }
         }
 
-        public Brush StageDisplayTCPInColor
+        public SolidColorBrush StageDisplayTCPInColor
         {
             get { return stageDisplayTCPInColor; }
             set
@@ -117,7 +134,7 @@ namespace DisplayControl.ViewModels
             }
         }
 
-        public Brush StageDisplayTCPOutColor
+        public SolidColorBrush StageDisplayTCPOutColor
         {
             get { return stageDisplayTCPOutColor; }
             set
@@ -129,7 +146,7 @@ namespace DisplayControl.ViewModels
                 }
             }
         }
-        public Brush StageDisplayPowerColor
+        public SolidColorBrush StageDisplayPowerColor
         {
             get { return stageDisplayPowerColor; }
             set
@@ -142,7 +159,7 @@ namespace DisplayControl.ViewModels
             }
         }
 
-        public Brush SmallHallTCPInColor
+        public SolidColorBrush SmallHallTCPInColor
         {
             get { return smallHallTCPInColor; }
             set
@@ -155,7 +172,7 @@ namespace DisplayControl.ViewModels
             }
         }
 
-        public Brush SmallHallTCPOutColor
+        public SolidColorBrush SmallHallTCPOutColor
         {
             get { return smallHallTCPOutColor; }
             set
@@ -167,7 +184,7 @@ namespace DisplayControl.ViewModels
                 }
             }
         }
-        public Brush SmallHallPowerColor
+        public SolidColorBrush SmallHallPowerColor
         {
             get { return smallHallPowerColor; }
             set

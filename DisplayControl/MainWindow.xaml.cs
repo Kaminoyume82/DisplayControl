@@ -45,6 +45,12 @@ namespace DisplayControl
 
         private void InitContext()
         {
+            InitConfigurationContext();
+            InitDeviceStatusContext();
+        }
+
+        private void InitConfigurationContext()
+        {
             this.ipAddressPortCompanion.DataContext = configurationViewModel.Companion;
 
             this.textBoxBeamer1Port.DataContext = configurationViewModel;
@@ -66,6 +72,27 @@ namespace DisplayControl
             this.ipAddressPortSmallHall.DataContext = configurationViewModel.SmallHallOut;
             this.textBoxSmallHallPage.DataContext = configurationViewModel;
             this.textBoxSmallHallBank.DataContext = configurationViewModel;
+        }
+
+        private void InitDeviceStatusContext()
+        {
+            this.deviceStatusViewModel = DeviceStatusViewModel.Default;
+
+            this.labelBeamer1TCPInColor.DataContext = this.deviceStatusViewModel;
+            this.labelBeamer1TCPOutColor.DataContext = this.deviceStatusViewModel;
+            this.labelBeamer1PowerColor.DataContext = this.deviceStatusViewModel;
+
+            this.labelBeamer2TCPInColor.DataContext = this.deviceStatusViewModel;
+            this.labelBeamer2TCPOutColor.DataContext = this.deviceStatusViewModel;
+            this.labelBeamer2PowerColor.DataContext = this.deviceStatusViewModel;
+
+            this.labelStageDisplayTCPInColor.DataContext = this.deviceStatusViewModel;
+            this.labelStageDisplayTCPOutColor.DataContext = this.deviceStatusViewModel;
+            this.labelStageDisplayPowerColor.DataContext = this.deviceStatusViewModel;
+
+            this.labelSmallHallTCPInColor.DataContext = this.deviceStatusViewModel;
+            this.labelSmallHallTCPOutColor.DataContext = this.deviceStatusViewModel;
+            this.labelSmallHallPowerColor.DataContext = this.deviceStatusViewModel;
         }
 
         private void LoadSettings()
