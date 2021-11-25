@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using DisplayControl.Log;
@@ -15,12 +12,11 @@ namespace DisplayControl.TCP
     /// </summary>
     class TcpIpThread
     {
-        private readonly Task mainTask;
         private readonly CancellationTokenSource cts;
-        private readonly ICommunicationProxy proxy;
-        private readonly Logger protocol;
         private readonly string description;
-        public event EventHandler<string> MessageReceived;
+        private readonly Task mainTask;
+        private readonly Logger protocol;
+        private readonly ICommunicationProxy proxy;
 
         public TcpIpThread(ICommunicationProxy proxy, string decription)
         {
@@ -28,17 +24,18 @@ namespace DisplayControl.TCP
             this.mainTask = new Task(Main, cts.Token, TaskCreationOptions.LongRunning);
             this.proxy = proxy;
             this.protocol = proxy.Protocol;
-            this.description = decription;
+            this.description = $"{decription}({proxy.Id})";
         }
 
-        public void Start()
-        {
-            this.mainTask.Start();
-        }
+        public event EventHandler<string> MessageReceived;
 
-        public void Stop()
+        public string Id => proxy.Id;
+
+        public string RequestDeviceStatusData { get; set; }
+
+        public void RegisterConnectionStatusChangeHandler(EventHandler<TcpConnectionStatusChangeEventArgs> handler)
         {
-            this.cts.Cancel();
+            this.proxy.RegisterConnectionStatusChangeHandler(handler);
         }
 
         public void SendData(string data)
@@ -57,30 +54,41 @@ namespace DisplayControl.TCP
             }
         }
 
-        private void Main()
+        public void Start()
         {
-            try
-            {
-                while (true)
-                {
-                    IDataSendReceive dataSendReceive = proxy.Setup();
+            this.mainTask.Start();
+        }
 
-                    if (dataSendReceive != null && dataSendReceive.DataAvailable)
+        public void Stop()
+        {
+            this.cts.Cancel();
+        }
+        private void FireDataReceivedIfAvailable()
+        {
+            IDataSendReceive dataSendReceive = proxy.Setup();
+
+            if (dataSendReceive != null)
+            {
+                if (dataSendReceive.DataAvailable)
+                {
+                    try
                     {
+                        string receivedData = dataSendReceive.ReceiveData();
                         FireMessageReceivedAsync(dataSendReceive.ReceiveData())
                             .ContinueWith(FireMessageReceivedHandled);
                     }
+                    catch (Exception ex)
+                    {
+                        this.protocol.LogError($"{description} thread: Error while receiving data. ErrorMessage={ex.Message}");
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                this.protocol.LogError($"{description} thread ended uncondionally. ErrorMessage={ex.Message}");
             }
         }
 
         private async Task FireMessageReceivedAsync(string message)
         {
-            await Task.Run(() => {
+            await Task.Run(() =>
+            {
                 if (MessageReceived != null)
                 {
                     MessageReceived(this, message);
@@ -92,8 +100,52 @@ namespace DisplayControl.TCP
         {
             if (t.IsFaulted)
             {
-                this.protocol.LogWarning($"{description} error while firing message event.");
+                this.protocol.LogWarning($"{description} error while firing message event. ErrorMessage={t.Exception.Message}");
             }
+        }
+
+        private void Main()
+        {
+            try
+            {
+                Thread.CurrentThread.Name = description;
+
+                while (!this.cts.IsCancellationRequested)
+                {
+                    this.FireDataReceivedIfAvailable();
+                    this.SendRequestDeviceStatus();
+
+                    Thread.Sleep(100);
+                }
+            }
+            catch (Exception ex)
+            {
+                this.protocol.LogError($"{description} thread ended uncondionally. ErrorMessage={ex.Message}");
+            }
+        }
+        private void SendRequestDeviceStatus()
+        {
+            if (string.IsNullOrWhiteSpace(RequestDeviceStatusData))
+                return;
+
+            IDataSendReceive dataSendReceive = proxy.Setup();
+
+            if (dataSendReceive != null)
+            {
+                try
+                {
+                    dataSendReceive.SendData(RequestDeviceStatusData);
+                }
+                catch (Exception ex)
+                {
+                    this.protocol.LogError($"{description} thread: Error while sending device status request. ErrorMessage={ex.Message}");
+                }                
+            }
+        }
+
+        internal void ToggleOnOff()
+        {
+            throw new NotImplementedException();
         }
     }
 }

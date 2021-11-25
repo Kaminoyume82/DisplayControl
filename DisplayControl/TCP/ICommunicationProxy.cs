@@ -9,6 +9,8 @@ namespace DisplayControl.TCP
 {
     public interface ICommunicationProxy
     {
+        string Id { get; }
+
         Logger Protocol { get; set; }
 
         ConnectionStatus ConnectionStatus { get; }

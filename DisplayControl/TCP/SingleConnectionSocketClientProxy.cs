@@ -103,6 +103,17 @@ namespace DisplayControl.TCP
         public Logger Protocol { get; set; }
 
         /// <summary>
+        /// Gets a id for the connection.
+        /// </summary>
+        public string Id
+        {
+            get
+            {
+                return $"{this.server}";
+            }
+        }
+
+        /// <summary>
         /// Open a connection if no connection exist.
         /// </summary>
         /// <returns>Connection interface if connection exist. If no connection exist return value is null.</returns>

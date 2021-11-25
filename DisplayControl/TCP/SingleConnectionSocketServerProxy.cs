@@ -42,6 +42,17 @@ namespace DisplayControl.TCP
         /// </summary>
         public Logger Protocol { get; set; }
 
+        /// <summary>
+        /// Gets a id for the connection.
+        /// </summary>
+        public string Id
+        {
+            get
+            {
+                return $"{this.ListeningEndpoint.Port}";
+            }
+        }
+
         public ConnectionStatus ConnectionStatus
         {
             get

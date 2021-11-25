@@ -13,13 +13,11 @@ namespace DisplayControl.StreamDeck
 {
     public class StreamDeckHttp
     {
-        private readonly IPEndPoint host;
         private readonly Logger logger;
         private readonly UriBuilder streamDeckUriBuilder;
 
         public StreamDeckHttp(IPEndPoint host, Logger logger)
         {
-            this.host = host;
             this.logger = logger;
 
             streamDeckUriBuilder = new UriBuilder();

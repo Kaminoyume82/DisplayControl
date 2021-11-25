@@ -29,18 +29,18 @@ namespace DisplayControl.ViewModels
             {
                 return new DeviceStatusViewModel()
                 {
-                    Beamer1TCPInColor = Brushes.Gray,
-                    Beamer1TCPOutColor = Brushes.Gray,
-                    Beamer1PowerColor = Brushes.Gray,
-                    Beamer2TCPInColor = Brushes.Gray,
-                    Beamer2TCPOutColor = Brushes.Gray,
-                    Beamer2PowerColor = Brushes.Gray,
-                    StageDisplayTCPInColor = Brushes.Gray,
-                    StageDisplayTCPOutColor = Brushes.Gray,
-                    StageDisplayPowerColor = Brushes.Gray,
-                    SmallHallTCPInColor = Brushes.Gray,
-                    SmallHallTCPOutColor = Brushes.Gray,
-                    SmallHallPowerColor = Brushes.Gray,
+                    Beamer1TCPInColor = Brushes.White,
+                    Beamer1TCPOutColor = Brushes.White,
+                    Beamer1PowerColor = Brushes.White,
+                    Beamer2TCPInColor = Brushes.White,
+                    Beamer2TCPOutColor = Brushes.White,
+                    Beamer2PowerColor = Brushes.White,
+                    StageDisplayTCPInColor = Brushes.White,
+                    StageDisplayTCPOutColor = Brushes.White,
+                    StageDisplayPowerColor = Brushes.White,
+                    SmallHallTCPInColor = Brushes.White,
+                    SmallHallTCPOutColor = Brushes.White,
+                    SmallHallPowerColor = Brushes.White,
                 };
             }
         }
