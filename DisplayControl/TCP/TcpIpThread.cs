@@ -2,36 +2,37 @@
 using System.Threading;
 using System.Threading.Tasks;
 using DisplayControl.Log;
+using DisplayControl.TCP.MessageHandling;
 
 namespace DisplayControl.TCP
 {
-
     /// <summary>
     ///  Simple class that manages a single tcp/ip connection.
     ///  It can send messages over a socket as ASCII encoded string and it sends events if a message is received.
     /// </summary>
-    class TcpIpThread
+    internal class TcpIpThread
     {
         private readonly CancellationTokenSource cts;
         private readonly string description;
+        private readonly IMessageHandling deviceSpecificMessageHandling;
         private readonly Task mainTask;
         private readonly Logger protocol;
         private readonly ICommunicationProxy proxy;
 
-        public TcpIpThread(ICommunicationProxy proxy, string decription)
+        public TcpIpThread(ICommunicationProxy proxy, string decription, IMessageHandling deviceSpecificMessageHandling)
         {
             this.cts = new CancellationTokenSource();
             this.mainTask = new Task(Main, cts.Token, TaskCreationOptions.LongRunning);
             this.proxy = proxy;
             this.protocol = proxy.Protocol;
             this.description = $"{decription}({proxy.Id})";
+            this.deviceSpecificMessageHandling = deviceSpecificMessageHandling;
+            this.MessageReceived += TcpIpThread_MessageReceived;
         }
 
         public event EventHandler<string> MessageReceived;
 
         public string Id => proxy.Id;
-
-        public string RequestDeviceStatusData { get; set; }
 
         public void RegisterConnectionStatusChangeHandler(EventHandler<TcpConnectionStatusChangeEventArgs> handler)
         {
@@ -63,6 +64,12 @@ namespace DisplayControl.TCP
         {
             this.cts.Cancel();
         }
+
+        public void ToggleOnOff()
+        {
+            deviceSpecificMessageHandling.ToggleOnOff();
+        }
+
         private void FireDataReceivedIfAvailable()
         {
             IDataSendReceive dataSendReceive = proxy.Setup();
@@ -74,8 +81,13 @@ namespace DisplayControl.TCP
                     try
                     {
                         string receivedData = dataSendReceive.ReceiveData();
-                        FireMessageReceivedAsync(dataSendReceive.ReceiveData())
-                            .ContinueWith(FireMessageReceivedHandled);
+                        string[] splittedMessages = this.deviceSpecificMessageHandling.Split(receivedData);
+
+                        foreach (string message in splittedMessages)
+                        {
+                            FireMessageReceivedAsync(message)
+                                .ContinueWith(FireMessageReceivedHandled);
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -112,10 +124,10 @@ namespace DisplayControl.TCP
 
                 while (!this.cts.IsCancellationRequested)
                 {
-                    this.FireDataReceivedIfAvailable();
                     this.SendRequestDeviceStatus();
+                    this.FireDataReceivedIfAvailable();
 
-                    Thread.Sleep(100);
+                    Thread.Sleep(1000);
                 }
             }
             catch (Exception ex)
@@ -123,9 +135,10 @@ namespace DisplayControl.TCP
                 this.protocol.LogError($"{description} thread ended uncondionally. ErrorMessage={ex.Message}");
             }
         }
+
         private void SendRequestDeviceStatus()
         {
-            if (string.IsNullOrWhiteSpace(RequestDeviceStatusData))
+            if (string.IsNullOrWhiteSpace(deviceSpecificMessageHandling.RequestDeviceStatusString))
                 return;
 
             IDataSendReceive dataSendReceive = proxy.Setup();
@@ -134,18 +147,18 @@ namespace DisplayControl.TCP
             {
                 try
                 {
-                    dataSendReceive.SendData(RequestDeviceStatusData);
+                    dataSendReceive.SendData(deviceSpecificMessageHandling.RequestDeviceStatusString);
                 }
                 catch (Exception ex)
                 {
                     this.protocol.LogError($"{description} thread: Error while sending device status request. ErrorMessage={ex.Message}");
-                }                
+                }
             }
         }
 
-        internal void ToggleOnOff()
+        private void TcpIpThread_MessageReceived(object sender, string message)
         {
-            throw new NotImplementedException();
+            deviceSpecificMessageHandling.HandleMessage(message);
         }
     }
 }

@@ -10,6 +10,7 @@ using DisplayControl.Log;
 using DisplayControl.Models;
 using DisplayControl.Properties;
 using DisplayControl.TCP;
+using DisplayControl.TCP.MessageHandling;
 using DisplayControl.ViewModels;
 
 namespace DisplayControl
@@ -113,30 +114,38 @@ namespace DisplayControl
             Dictionary<int, TcpIpThread> inThreads = new Dictionary<int, TcpIpThread>();
             for (int i = 0; i <= 3; i++)
             {
-                TcpIpThread inTcpIpThread;
-                if (!inThreads.TryGetValue(configurations.PortsForIncomingConnections[i], out inTcpIpThread))
-                {
-                    inTcpIpThread = new TcpIpThread(new SingleConnectionSocketServerProxy(configurations.PortsForIncomingConnections[i], true, this.logger), "Companion");
-                    inThreads.Add(configurations.PortsForIncomingConnections[i], inTcpIpThread);
-                }
-
                 InToDeviceToUIMapping inToDeviceToUIMapping = new InToDeviceToUIMapping()
                 {
                     Id = i,
-                    IncomingIpThread = inTcpIpThread,
-                    DeviceIpThread = new TcpIpThread(new SingleConnectionSocketClientProxy(configurations.EndpointsForDevices[i], this.logger), "Device"),
                     IncomingIpThreadStatus = (DeviceStatusColumn.Companion, (DeviceStatusRow)i),
                     DeviceIpThreadStatus = (DeviceStatusColumn.Device, (DeviceStatusRow)i),
                     DevicePowerStatus = (DeviceStatusColumn.Power, (DeviceStatusRow)i),
                     UIPageBank = configurations.PagesAndBanksForUI[i],
                 };
 
+                inToDeviceToUIMapping.DeviceIpThread = new TcpIpThread(
+                    new SingleConnectionSocketClientProxy(configurations.EndpointsForDevices[i], this.logger),
+                    "Device",
+                    new BeamerMessageHandling(color => InvokeSetDeviceStatusColor(inToDeviceToUIMapping.DevicePowerStatus, color))
+                );
+
+                TcpIpThread inTcpIpThread;
+                if (!inThreads.TryGetValue(configurations.PortsForIncomingConnections[i], out inTcpIpThread))
+                {
+                    inTcpIpThread = new TcpIpThread(
+                        new SingleConnectionSocketServerProxy(configurations.PortsForIncomingConnections[i], true, this.logger),
+                        "Companion",
+                        new CompanionMessageHandling(inToDeviceToUIMapping.DeviceIpThread)
+                    );
+
+                    inThreads.Add(configurations.PortsForIncomingConnections[i], inTcpIpThread);
+                }
+                inToDeviceToUIMapping.IncomingIpThread = inTcpIpThread;
+
                 inToDeviceToUIMapping.IncomingIpThread.RegisterConnectionStatusChangeHandler((sender, args) =>
                 {
                     InvokeSetDeviceStatusColor(inToDeviceToUIMapping.IncomingIpThreadStatus, GetColorByConnectionStatus(args.NewStatus));
                 });
-
-                inToDeviceToUIMapping.IncomingIpThread.MessageReceived += IncomingIpThread_MessageReceived;
 
                 inToDeviceToUIMapping.DeviceIpThread.RegisterConnectionStatusChangeHandler((sender, args) =>
                 {
@@ -148,23 +157,6 @@ namespace DisplayControl
                 });
 
                 inToDeviceToUIMappings.Add(inToDeviceToUIMapping);
-            }
-        }
-
-        private void IncomingIpThread_MessageReceived(object sender, string message)
-        {
-            IEnumerable<InToDeviceToUIMapping> correspondingMappings = GetMappingsForIncomingIpThread((TcpIpThread)sender);
-
-            foreach (var correspondingMapping in correspondingMappings)
-            {
-                if (message.ToUpperInvariant() == PredefinedMessages.TOGGLE_ON_OFF)
-                {
-                    correspondingMapping.DeviceIpThread.ToggleOnOff();
-                }
-                else
-                {
-                    correspondingMapping.DeviceIpThread.SendData(message);
-                }
             }
         }
 

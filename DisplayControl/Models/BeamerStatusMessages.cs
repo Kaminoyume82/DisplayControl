@@ -3,6 +3,9 @@
     static class BeamerStatusMessages
     {
         public const string REQUEST_STATUS = "CR0\r";
+        public const string SET_POWER_ON = "C00\r";
+        public const string SET_POWER_OFF = "C01\r";
+
         public const char POWER_ON = (char)0x00;
         public const char STANDBY = (char)0x80;
         public const char COUNTDOWN_IN_PROCESS = (char)0x40;
